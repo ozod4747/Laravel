@@ -10,7 +10,10 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::where('is_published', 1)
+            ->where('category_id', 5)
+            ->paginate(10);
+
         return view('post.index', compact('posts'));
     }
 
@@ -36,6 +39,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
+
         return redirect()->route('post.index');
     }
 
@@ -43,13 +47,12 @@ class PostController extends Controller
     {
         $post = Post::withTrashed()->find(2);
         $post->restore();
-        dd('ochdi  ');
+
+        dd('ochdi');
     }
 
     public function firstOrCreate()
     {
-
-
         $anotherPost = [
             'title' => 'some post',
             'content' => 'some content',
@@ -58,28 +61,24 @@ class PostController extends Controller
             'is_published' => 1,
         ];
 
-
         $post = Post::firstOrCreate([
             'title' => 'some content',
         ], [
-
             'title' => 'some content',
-            'content' => 'some  content',
+            'content' => 'some content',
             'image' => 'some imageblabla.ppg',
             'likes' => 505,
             'is_published' => 1,
         ]);
+
         dump($post->content);
         dd('finished');
     }
 
-    //firstOrCreate
-    //updateOrCreate
-
     public function updateOrCreate()
     {
         $anotherPost = [
-            'title' => ' updateorcreatesome post',
+            'title' => 'updateorcreatesome post',
             'content' => 'updateorcreatesome some content',
             'image' => 'updateorcreatesome some bla bla',
             'likes' => 55,
@@ -87,15 +86,15 @@ class PostController extends Controller
         ];
 
         $post = Post::updateOrCreate([
-            'title' => ' title not of post form phpstorm',
+            'title' => 'title not of post form phpstorm',
         ], [
-
-            'title' => ' title not of post form phpstorm',
-            'content' => ' it is not update some content',
+            'title' => 'title not of post form phpstorm',
+            'content' => 'it is not update some content',
             'image' => 'it is not update some bla bla',
             'likes' => 55,
             'is_published' => 0,
         ]);
+
         dump($post->content);
         dd(222222);
     }
@@ -131,6 +130,7 @@ class PostController extends Controller
     {
         $categories = Category::all();
         $tags = Tag::all();
+
         return view('post.edit', compact('post', 'categories', 'tags'));
     }
 }
