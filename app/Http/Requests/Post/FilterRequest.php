@@ -16,9 +16,9 @@ class FilterRequest extends FormRequest
         return [
             'title' => 'nullable|string',
             'content' => 'nullable|string',
-            'image' => 'nullable|string',
+//            'image' => 'nullable|string',
             'category_id' => 'nullable|integer',
-            'tags' => 'nullable|array',
+//            'tags' => 'nullable|array',
         ];
     }
 }

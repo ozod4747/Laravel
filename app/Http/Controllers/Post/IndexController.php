@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Post;
 
+use App\Http\Filters\PostFilter;
 use App\Http\Requests\Post\FilterRequest;
 use App\Models\Post;
 
@@ -11,10 +12,13 @@ class IndexController extends BaseController
     {
         $data = $request->validated();
 
-        $query = Post::query();
+        $filter = app()->make(PostFilter::class, [
+            'queryParams' => $data
+        ]);
 
-        
-        $posts = $query->get();
-        dd($posts);
+       $posts = Post::filterRequest($filter)->paginate(10);
+
+       return view('post.index', compact('posts'));
+
     }
 }
