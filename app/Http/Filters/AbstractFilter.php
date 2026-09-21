@@ -13,8 +13,6 @@ abstract class AbstractFilter implements FilterInterface
         $this->queryParams = $queryParams;
     }
 
-    abstract protected function getCallbacks(): array;
-
     public function apply(Builder $builder)
     {
         $this->before($builder);
@@ -31,6 +29,8 @@ abstract class AbstractFilter implements FilterInterface
     protected function before(Builder $builder)
     {
     }
+
+    abstract protected function getCallbacks(): array;
 
     protected function getQueryParams(string $key, $default = null)
     {
