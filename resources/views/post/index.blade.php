@@ -20,7 +20,6 @@
 
         @endforeach
 
-
         <div>
             {{ $posts->withQueryString()->links() }}
         </div>
