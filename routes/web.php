@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::group(['namespace' => 'App\Http\Controllers\Post'], function () {
     Route::get('/posts', 'IndexController')->name('post.index');
     Route::get('/posts/create', 'CreateController')->name('post.create');
@@ -20,6 +20,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Post'], function () {
 Route::group([
     'namespace' => 'App\Http\Controllers\Admin',
     'prefix' => 'admin',
+    'middleware' => ['auth', 'admin']
 ], function () {
 
     Route::group(['namespace' => 'Post'], function () {
