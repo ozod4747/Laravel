@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('title');
             $table->text('content');
             $table->string('image');
-            $table->unsignedBigInteger('likes');
+            $table->unsignedBigInteger('likes')->default(0);
             $table->boolean('is_published');
             $table->timestamps();
             $table->softDeletes();
