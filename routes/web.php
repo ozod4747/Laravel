@@ -1,11 +1,15 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
+use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::group(['namespace' => 'App\Http\Controllers\Post'], function () {
+Route::group([
+    'namespace' => 'App\Http\Controllers\Post',
+    'middleware' => 'auth'
+], function () {
     Route::get('/posts', 'IndexController')->name('post.index');
     Route::get('/posts/create', 'CreateController')->name('post.create');
 
@@ -30,7 +34,7 @@ Route::group([
 });
 
 
-Route::get('/posts/update', 'App\Http\Controllers\PostController@update');
+Route::get('/posts/update', [PostController::class, 'update']);
 Route::get('/posts/delete', 'App\Http\Controllers\PostController@delete');
 Route::get('/posts/first_or_create', 'App\Http\Controllers\PostController@firstOrCreate');
 Route::get('/posts/update_or_create', 'App\Http\Controllers\PostController@updateOrCreate');
