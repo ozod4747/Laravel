@@ -8,12 +8,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::group([
     'namespace' => 'App\Http\Controllers\Post',
-    'middleware' => 'auth'
 ], function () {
     Route::get('/posts', 'IndexController')->name('post.index');
     Route::get('/posts/create', 'CreateController')->name('post.create');
 
-    Route::post('/posts/', 'StoreController')->name('post.store');
+    Route::post('/posts', 'StoreController')->name('post.store');
     Route::get('/posts/{post}', 'ShowController')->name('post.show');
     Route::get('/posts/{post}/edit', 'EditController')->name('post.edit');
     Route::patch('/posts/{post}', 'UpdateController')->name('post.update');
@@ -46,4 +45,6 @@ Route::get('/about', 'App\Http\Controllers\AboutController@index')->name('about.
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])
+    ->middleware('auth')
+    ->name('home');

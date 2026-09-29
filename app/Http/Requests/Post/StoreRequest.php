@@ -26,7 +26,9 @@ class StoreRequest extends FormRequest
             'title' => 'required|string',
             'content' => 'required|string',
             'image' => 'nullable|string',
+            'likes' => 'nullable|string',
             'category_id' => 'nullable|integer',
+            'is_published' => 'nullable|boolean',
             'tags' => 'nullable|array',
         ];
     }
