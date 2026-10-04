@@ -19,6 +19,8 @@ class FilterRequest extends FormRequest
 //            'image' => 'nullable|string',
             'category_id' => 'nullable|integer',
 //            'tags' => 'nullable|array',
+            'page' => 'nullable|integer',
+            'per_page' => 'nullable|integer',
         ];
     }
 }

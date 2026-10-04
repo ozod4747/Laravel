@@ -20,9 +20,6 @@
                             <a class="nav-link active" aria-current="page" href="{{route(('main.index'))}}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route(('post.index'))}}">Posts</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="{{route(('about.index'))}}">About</a>
                         </li>
                         <li class="nav-item">

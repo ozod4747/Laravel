@@ -6,13 +6,18 @@ use App\Models\Post;
 
 class Service
 {
-    public function store($data)
+    public function store(array $data)
     {
-        $tags = $data['tags'] ?? [];
-        unset($data['tags']);
+        $post = new Post();
+        $post->image = $data['image'];
+        $post->title = $data['title'];
+        $post->content = $data['content'];
+        $post->is_published = $data['is_published'];
+        $post->category_id = $data['category_id'];
+        $post->save();
 
-        $post = Post::create($data);
-        $post->tags()->attach($tags);
+        $post->tags()->attach($data['tags']);
+        return $post;
     }
 
     public function update($post, $data)
@@ -22,5 +27,6 @@ class Service
 
         $post->update($data);
         $post->tags()->sync($tags);
+        return $post->fresh();
     }
 }
